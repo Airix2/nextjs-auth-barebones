@@ -1,8 +1,7 @@
-import NextAuth, { NextAuthOptions, Session, User } from "next-auth";
+import NextAuth, { NextAuthOptions, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
-import { Users, UserInstance } from "@/models/User";
-import { JWT } from "next-auth/jwt";
+import { Users } from "@/models/User";
 
 const confirmPasswordHash = (plainPassword: string, hashedPassword: string) => {
 	return new Promise((resolve) => {
@@ -65,6 +64,7 @@ export const authOptions: NextAuthOptions = {
 			},
 		}),
 	],
+	secret: process.env.NEXTAUTH_SECRET,
 	callbacks: {
 		async jwt({ token, user }) {
 			if (user) {
