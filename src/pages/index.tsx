@@ -7,8 +7,21 @@ import axios from "axios";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export async function getServerSideProps(context: any) {
+	const environment = {
+		secret: process.env.NEXTAUTH_SECRET,
+		url: process.env.NEXTAUTH_URL,
+	};
+	return {
+		props: {
+			environment,
+		}, // will be passed to the page component as props
+	};
+}
+
+export default function Home({ environment }: any) {
 	const { data } = useSession();
+	console.log(environment);
 
 	const callNormalAPI = async () => {
 		try {
