@@ -1,11 +1,8 @@
 import { Sequelize } from "sequelize";
 
-export const sequelize = new Sequelize(
-	"postgres://postgres:123456@localhost:5432/db_chat",
-	{
-		logging: false,
-	}
-);
+export const sequelize = new Sequelize(process.env.DB_URI || "", {
+	logging: false,
+});
 
 sequelize
 	.authenticate()

@@ -13,11 +13,7 @@ const SkeletonLayout = ({ children }: LayoutProps) => {
 				<Link href="/">Home</Link>
 				<div className="flex gap-4">
 					<button onClick={() => signIn()}>Log In</button>
-					<button
-						onClick={() =>
-							signOut({ callbackUrl: "http://localhost:3000" })
-						}
-					>
+					<button onClick={() => signOut({ callbackUrl: "/" })}>
 						Log out
 					</button>
 				</div>

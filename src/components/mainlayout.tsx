@@ -23,7 +23,7 @@ const MainLayout = ({ children }: LayoutProps) => {
 							<button
 								onClick={() =>
 									signOut({
-										callbackUrl: "http://localhost:3000",
+										callbackUrl: "/",
 									})
 								}
 							>
