@@ -52,7 +52,7 @@ export const authOptions: NextAuthOptions = {
 						firstname: "Alex",
 						lastname: "Soto",
 						email: "test@gmail.com",
-						role: "admin",
+						role: "user",
 						createdAt: new Date("2022-09-01 10:00:51.792-07"),
 						updatedAt: new Date("2022-09-01 10:00:51.792-07"),
 					};
@@ -89,7 +89,7 @@ export const authOptions: NextAuthOptions = {
 		},
 	},
 	jwt: {
-		maxAge: 60,
+		maxAge: 60 * 60 * 6,
 	},
 };
 

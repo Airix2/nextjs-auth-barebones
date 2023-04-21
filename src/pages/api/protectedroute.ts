@@ -7,26 +7,20 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	try {
-		const session = await getServerSession(req, res, authOptions);
+	const session = await getServerSession(req, res, authOptions);
 
-		if (session) {
-			if (checkRole(session.user.role, req.url!)) {
-				return res.status(200).send({
-					content:
-						"This is protected content. You can access this content because you are signed in.",
-				});
-			}
-			return res.status(403).send({
-				error: "You don't have the permission to view this route.",
-			});
-		} else {
-			res.status(401).send({
-				error: "You must be signed in to view the protected content on this page.",
-			});
-		}
-	} catch (error) {
-		console.log("error", error);
-		res.status(500).send(error);
+	if (!session) {
+		return res.status(401).send({
+			error: "You must be signed in to view the protected content on this page.",
+		});
 	}
+	if (!checkRole(session.user.role, req.url!)) {
+		return res.status(403).send({
+			error: "You don't have the permission to view this route.",
+		});
+	}
+	return res.status(200).send({
+		content:
+			"This is protected content. You can access this content because you are signed in.",
+	});
 }

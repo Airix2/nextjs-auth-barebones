@@ -9,10 +9,6 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Profile() {
 	const { data: session } = useSession();
 
-	// useEffect(() => {
-	// 	console.log(session);
-	// }, [session]);
-
 	return (
 		<MainLayout>
 			<div className="flex flex-col gap-10">
