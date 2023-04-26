@@ -2,6 +2,8 @@ import React, { ReactNode } from "react";
 import Link from "next/link";
 import { signOut, signIn } from "next-auth/react";
 import Head from "next/head";
+import Header from "./header";
+import AuthHeader from "./authHeader";
 
 interface LayoutProps {
 	children: ReactNode;
@@ -10,7 +12,7 @@ interface LayoutProps {
 
 const SkeletonLayout = ({ children, title }: LayoutProps) => {
 	return (
-		<div className="p-5">
+		<div>
 			<Head>
 				<link rel="icon" href="/logo.png" />
 				<title>
@@ -19,7 +21,8 @@ const SkeletonLayout = ({ children, title }: LayoutProps) => {
 						: "Adriana's Insurance"}
 				</title>
 			</Head>
-			<nav className="px-5 w-full flex justify-between">
+			<AuthHeader />
+			{/* <nav className="px-5 w-full flex justify-between">
 				<Link href="/">Home</Link>
 				<div className="flex gap-4">
 					<button onClick={() => signIn()}>Log In</button>
@@ -27,7 +30,7 @@ const SkeletonLayout = ({ children, title }: LayoutProps) => {
 						Log out
 					</button>
 				</div>
-			</nav>
+			</nav> */}
 			<main className="py-5 flex justify-center">{children}</main>
 		</div>
 	);

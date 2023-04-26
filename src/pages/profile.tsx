@@ -12,7 +12,12 @@ export default function Profile() {
 			<div className="flex flex-col gap-10">
 				<h4 className="text-center">Profile</h4>
 				<p className="text-center">this page IS protected</p>
-				{session?.user && JSON.stringify(session.user)}
+				{session?.user &&
+					Object.keys(session.user).map((key) => (
+						<p className="px-5">
+							{key}: {session.user[key]}
+						</p>
+					))}
 			</div>
 		</MainLayout>
 	);
