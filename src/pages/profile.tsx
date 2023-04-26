@@ -6,6 +6,7 @@ import MainLayout from "@/components/mainlayout";
 
 export default function Profile() {
 	const { data: session } = useSession();
+	const user = session?.user as any;
 
 	return (
 		<MainLayout>
@@ -13,9 +14,9 @@ export default function Profile() {
 				<h4 className="text-center">Profile</h4>
 				<p className="text-center">this page IS protected</p>
 				{session?.user &&
-					Object.keys(session.user).map((key) => (
+					Object.keys(user).map((key) => (
 						<p className="px-5">
-							{key}: {session.user[key]}
+							{key}: {user[key]}
 						</p>
 					))}
 			</div>
