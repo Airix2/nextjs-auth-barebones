@@ -3,6 +3,7 @@ import React, { ReactNode } from "react";
 import type { AppProps } from "next/app";
 import { SessionProvider, useSession } from "next-auth/react";
 import { NextComponentType } from "next";
+import { Inter } from "next/font/google";
 import SkeletonLayout from "@/components/skeletonlayout";
 import { useRouter } from "next/router";
 import { checkRole } from "@/utils/permissions";
@@ -16,20 +17,24 @@ interface AuthRoles {
 	role: string;
 }
 
+const inter = Inter({ subsets: ["latin"] });
+
 export default function App({
 	Component,
 	pageProps: { session, ...pageProps },
 }: CustomComponentProps) {
 	return (
-		<SessionProvider session={session}>
-			{Component?.auth ? (
-				<Auth auth={Component.auth}>
+		<main className={inter.className}>
+			<SessionProvider session={session}>
+				{Component?.auth ? (
+					<Auth auth={Component.auth}>
+						<Component {...pageProps} />
+					</Auth>
+				) : (
 					<Component {...pageProps} />
-				</Auth>
-			) : (
-				<Component {...pageProps} />
-			)}
-		</SessionProvider>
+				)}
+			</SessionProvider>
+		</main>
 	);
 }
 

@@ -1,10 +1,7 @@
 import Image from "next/image";
-import { Inter } from "next/font/google";
 import { signIn, useSession } from "next-auth/react";
 import { useEffect } from "react";
 import MainLayout from "@/components/mainlayout";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Admin() {
 	const { data: session } = useSession();

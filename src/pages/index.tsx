@@ -1,11 +1,8 @@
 import Image from "next/image";
-import { Inter } from "next/font/google";
 import { signIn, useSession } from "next-auth/react";
 import { useEffect } from "react";
 import MainLayout from "@/components/mainlayout";
 import axios from "axios";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ environment }: any) {
 	const { data } = useSession();
