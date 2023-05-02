@@ -1,7 +1,9 @@
 import NextAuth, { NextAuthOptions, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GitHubProvider from "next-auth/providers/github";
 import { compare } from "bcrypt";
-// import { Users } from "@/models/User";
+
+const docketwise_baseurl = "https://app.docketwise.com";
 
 const confirmPasswordHash = (plainPassword: string, hashedPassword: string) => {
 	return new Promise((resolve) => {
@@ -73,6 +75,25 @@ export const authOptions: NextAuthOptions = {
 				return null;
 			},
 		}),
+		GitHubProvider({
+			clientId: process.env.GITHUB_ID!,
+			clientSecret: process.env.GITHUB_SECRET!,
+		}),
+		// {
+		// 	id: "docketwise",
+		// 	name: "Docketwise",
+		// 	type: "oauth",
+		// 	authorization: `${docketwise_baseurl}/oauth/authorize`,
+		// 	token: `${docketwise_baseurl}/oauth/token`,
+		// 	profile(profile) {
+		// 		return {
+		// 			id: profile.id,
+		// 			name: profile.kakao_account?.profile.nickname,
+		// 			email: profile.kakao_account?.email,
+		// 			image: profile.kakao_account?.profile.profile_image_url,
+		// 		};
+		// 	},
+		// },
 	],
 	secret: process.env.NEXTAUTH_SECRET,
 	callbacks: {

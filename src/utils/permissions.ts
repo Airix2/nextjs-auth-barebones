@@ -1,6 +1,6 @@
 const checkUrls = {
 	"/admin": ["admin"],
-	"/profile": ["admin", "user"],
+	"/profile": ["admin", "user", undefined],
 	"/api/protectedroute": ["admin"],
 } as any;
 

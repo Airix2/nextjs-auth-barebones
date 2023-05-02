@@ -110,7 +110,7 @@ export default function Header() {
 																					"web"
 																				}
 																				href={
-																					"/webquotes"
+																					"/"
 																				}
 																				className="flex items-start rounded-lg hover:bg-gray-50"
 																			>

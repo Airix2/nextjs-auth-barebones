@@ -4,9 +4,11 @@ import type { AppProps } from "next/app";
 import { SessionProvider, useSession } from "next-auth/react";
 import { NextComponentType } from "next";
 import { Inter } from "next/font/google";
+import { ErrorBoundary } from "react-error-boundary";
 import SkeletonLayout from "@/components/skeletonlayout";
 import { useRouter } from "next/router";
 import { checkRole } from "@/utils/permissions";
+import ErrorFallback from "@/components/errorFallback";
 
 interface CustomComponentProps extends AppProps {
 	Component: NextComponentType & {
@@ -26,13 +28,15 @@ export default function App({
 	return (
 		<main className={inter.className}>
 			<SessionProvider session={session}>
-				{Component?.auth ? (
-					<Auth auth={Component.auth}>
+				<ErrorBoundary FallbackComponent={ErrorFallback}>
+					{Component?.auth ? (
+						<Auth auth={Component.auth}>
+							<Component {...pageProps} />
+						</Auth>
+					) : (
 						<Component {...pageProps} />
-					</Auth>
-				) : (
-					<Component {...pageProps} />
-				)}
+					)}
+				</ErrorBoundary>
 			</SessionProvider>
 		</main>
 	);

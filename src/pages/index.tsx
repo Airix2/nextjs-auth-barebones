@@ -1,10 +1,21 @@
-import Image from "next/image";
-import { signIn, useSession } from "next-auth/react";
-import { useEffect } from "react";
+import { useSession } from "next-auth/react";
 import MainLayout from "@/components/mainlayout";
 import axios from "axios";
 
-export default function Home({ environment }: any) {
+export async function getServerSideProps(context: any) {
+	return {
+		props: {
+			github: {
+				client_id: process.env.GITHUB_ID,
+				redirect_uri: "http://localhost:3000/api/auth/callback/github",
+				state: "qwertyuiop",
+				signup: "false",
+			},
+		},
+	};
+}
+
+export default function Home({ github }: any) {
 	const { data } = useSession();
 
 	const callNormalAPI = async () => {
@@ -23,14 +34,27 @@ export default function Home({ environment }: any) {
 			console.log(error);
 		}
 	};
+	const callGithubAPI = async () => {
+		try {
+			const ans = await axios.get("/api/github");
+			console.log(ans.data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	return (
 		<MainLayout>
 			<div className="flex flex-col gap-10">
-				<p>Home page!</p>
-				<p>this page is unprotected</p>
+				<p>Home page! this page is unprotected</p>
 				<button onClick={callNormalAPI}>Normal API</button>
 				<button onClick={callProtectedAPI}>Protected API</button>
+				<a
+					href={`https://github.com/login/oauth/authorize?client_id=${github.client_id}&redirect_uri=${github.redirect_uri}&state=${github.state}&signup=${github.signup}`}
+				>
+					Login API Github
+				</a>
+				<button onClick={callGithubAPI}>Github API</button>
 			</div>
 		</MainLayout>
 	);
